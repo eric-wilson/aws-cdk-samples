@@ -27,7 +27,8 @@ namespace CdkWebApp
             {
                 Vpc = vpc,
                 InstanceType = InstanceType.Of(InstanceClass.BURSTABLE3, InstanceSize.MICRO),
-                MachineImage = new AmazonLinuxImage(),
+                // get the linux two type otherwise it defaults to the older image
+                MachineImage = new AmazonLinuxImage(new AmazonLinuxImageProps { Generation = AmazonLinuxGeneration.AMAZON_LINUX_2 }),
                 AllowAllOutbound = true,
                 DesiredCapacity = 1,
                 MaxCapacity = 2,
@@ -46,6 +47,7 @@ namespace CdkWebApp
         {
             var ud = UserData.ForLinux();
 
+            // todo pull this from s3 or an assets directory
             var commands = new string[]
             {
                 "#!/bin/bash -ex",
@@ -68,11 +70,11 @@ namespace CdkWebApp
                 //"# make sure it statys running",
                 "sudo chkconfig docker on",
                 //"#Add the ec2-user to the docker group so you can execute Docker commands without using sudo.",
-                "sudo usermod -a - G docker ec2-user",
+                "sudo usermod -a -G docker ec2-user",
                 //"#get the latest docker-compose program",
                 "sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
                 //"# fix permissions",
-                "sudo chmod +x /usr/local/bin/docker - compose",
+                "sudo chmod +x /usr/local/bin/docker-compose",
                 //"# / docker configure",
                 //"#####################################################################################################################################################",
 
