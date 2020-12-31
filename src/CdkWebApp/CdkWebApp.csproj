@@ -9,11 +9,12 @@
 
   <ItemGroup>
     <!-- CDK Construct Library dependencies -->
-    <PackageReference Include="Amazon.CDK" Version="1.78.0" />
-    <PackageReference Include="Amazon.CDK.AWS.AutoScaling" Version="1.78.0" />
-    <PackageReference Include="Amazon.CDK.AWS.EC2" Version="1.78.0" />
-    <PackageReference Include="Amazon.CDK.AWS.ElasticLoadBalancing" Version="1.78.0" />
-    <PackageReference Include="Amazon.CDK.AWS.IAM" Version="1.78.0" />
+    <PackageReference Include="Amazon.CDK" Version="1.80.0" />
+    <PackageReference Include="Amazon.CDK.AWS.AutoScaling" Version="1.80.0" />
+    <PackageReference Include="Amazon.CDK.AWS.EC2" Version="1.80.0" />
+    <PackageReference Include="Amazon.CDK.AWS.ElasticLoadBalancing" Version="1.80.0" />
+    <PackageReference Include="Amazon.CDK.AWS.ElasticLoadBalancingV2" Version="1.80.0" />
+    <PackageReference Include="Amazon.CDK.AWS.IAM" Version="1.80.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 
     <!-- jsii Roslyn analyzers (un-comment to obtain compile-time checks for missing required props
