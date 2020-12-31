@@ -19,5 +19,7 @@ It uses the [.NET Core CLI](https://docs.microsoft.com/dotnet/articles/core/) to
 * `cdk deploy --profile PROFILE_NAME`   deploy a stack with a specific AWS profile
 * `cdk diff`         compare deployed stack with current state
 * `cdk synth`        emits the synthesized CloudFormation template
-* `ckd destroy`      destroy a stack
+* `cdk destroy`      destroy a stack
+* `cdk bootstrap`    sets up an environment
 
+* `ckd-init` Initialize new projects
