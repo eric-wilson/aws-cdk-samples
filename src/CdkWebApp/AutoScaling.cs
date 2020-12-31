@@ -30,10 +30,10 @@ namespace CdkWebApp
                 // get the linux two type otherwise it defaults to the older image
                 MachineImage = new AmazonLinuxImage(new AmazonLinuxImageProps { Generation = AmazonLinuxGeneration.AMAZON_LINUX_2 }),
                 AllowAllOutbound = true,
-                DesiredCapacity = 1,
+                //DesiredCapacity = 1,
                 MaxCapacity = 2,
                 MinCapacity = 1,
-                KeyName = "a4l-key-pair",
+                //KeyName = "geekcafe",  // get from config
                 AssociatePublicIpAddress = true,
                 VpcSubnets = selection,
                 Role = role,
@@ -78,6 +78,19 @@ namespace CdkWebApp
                 //"# / docker configure",
                 //"#####################################################################################################################################################",
 
+                //# apache
+                "sudo yum -y install httpd mod_ssl",
+                "sudo systemctl start httpd",
+                "udo systemctl enable httpd",
+                "sudo usermod -a -G apache ec2-user",
+                "hostname=$(curl http://169.254.169.254/latest/meta-data/hostname)",
+                "sudo cat -s > \"/var/www/html/index.html\" << EOF",
+                "<html>",
+                "<body>Hello Internet <p>${hostname}</body>",
+                "</html>",
+                "EOF",
+                "sudo systemctl restart httpd"
+                //# / apache
 
             };
 
