@@ -39,8 +39,9 @@ namespace CdkWebApp
 
 
             // load balancer
-            var lb = new LoadBalancer();
-            lb.Create(this, vpc, asg);
+            //var lb = new LoadBalancers.ClassicLoadBalancer();
+            var lb = new LoadBalancers.ApplicationLoadBalancer();
+            lb.Create(this, vpc, asg, sg);
 
         }
 
