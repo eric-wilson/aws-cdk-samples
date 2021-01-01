@@ -14,7 +14,7 @@ namespace CdkWebApp
            
         }
 
-        public AutoScalingGroup Create(Construct scope, Vpc vpc)
+        public AutoScalingGroup Create(Construct scope, Vpc vpc, SecurityGroup sg, string name)
         {
 
             var role = new Security.IamRole().Create(scope);
@@ -22,6 +22,10 @@ namespace CdkWebApp
             {
                 SubnetType = SubnetType.PUBLIC
             };
+
+            var healchCheck = Amazon.CDK.AWS.AutoScaling.HealthCheck.Elb(new ElbHealthCheckOptions {
+                Grace = Duration.Minutes(5)
+            });
 
             var asg = new AutoScalingGroup(scope, "ASG", new AutoScalingGroupProps
             {
@@ -37,8 +41,15 @@ namespace CdkWebApp
                 AssociatePublicIpAddress = true,
                 VpcSubnets = selection,
                 Role = role,
-                UserData = GetUserData()
+                UserData = GetUserData(),
+                HealthCheck = healchCheck,
+                SecurityGroup = sg
+                 
             });
+
+            Amazon.CDK.Tags.Of(asg).Add("Name", $"{name}"); 
+
+            //asg.ScaleOnCpuUtilization()
 
             return asg;
         }
